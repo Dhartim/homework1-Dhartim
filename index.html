@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- TODO: Change title -->
-    <title>Website Template</title>
+    <title>Homework 1 Template</title>
 
     <!-- Load Bulma from CDN (consider saving it to repository instead) -->
     <!-- https://bulma.io/ -->
@@ -23,9 +23,10 @@
     <div class="hero-body">
       <div class="container">
         <!-- TODO: Change title -->
-        <h1 class="title">Website Title</h1>
+        <h1 class="title">Homework 1 </h1>
         <!-- TODO: Change subtitle -->
-        <h2 class="subtitle">Website Subtitle</h2>
+        <h2 class="subtitle">For this homework assignment, you must visualize dataset with basic visualization techniques using Tableau Desktop and D3.js (version 5).
+          </h2>
       </div>
     </div>
   </section>
@@ -125,7 +126,7 @@
 
         <h2 id="data">Data</h2>
 
-        <p>Include some detailed information about the dataset here. You should <a href="#">add a link</a> to the original dataset. You might also want to quote the license:</p>
+        <p>Here is the link to the dataset used for this assignment:  <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">Air Traffic Passenger Statistics</a> . You might also want to quote the license:</p>
 
         <blockquote>
           <p>
@@ -134,28 +135,59 @@
           <cite>Put a citation here, possibly link to the dataset license information directly.</cite>
         </blockquote>
 
-        <p>In addition to including a link to the source and license, you should describe the data. You might want a list of some sort to enumerate the different types of columns:</p>
+        <p>Dataset consists of San Francisco International Airport reports with data on number of passengers and some statistics by Geo Region and Boarding Area. Here is the list of columns:</p>
 
         <ol>
-          <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
+          <li><strong>Geo Region:</strong> Text. Geographic region of the flight</li>
 
-          <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
+          <li><strong>Geo Summary:</strong> Text. International or Domestic flight.</li>
 
-          <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
+          <li><strong>Activity Period:</strong> Date. Shows time period in yyyy/mm format</li>
 
-          <li><strong>Column Name:</strong> Give a description of the column, including its type and possible range of values.</li>
+          <li><strong>Terminal:</strong> Text. Terminals as International, Terminal 1, Terminal 2 and so on.</li>
+
+          <li><strong>Boarding Area:</strong> Text. Boarding area of the flight.</li>
+
+          <li><strong>Passenger Count:</strong>  Number. Shows the number of passengers for a particular data.</li>
         </ol>
 
-        <p>This will of course differ depending on the assignment and data.</p>
+        <p>I have used few columns from the columns listed for my visualization.</p>
 
         <h3 id="wrangling">Wrangling</h3>
 
-        <p>Perhaps you had to do some data wrangling to the original dataset to prepare it for visualization. This would be a great place to discuss some of that wrangling.
+        <p>Converted Activity Period to Date/Time data type. Converted Passenger Count from string to number. Here is the code to do it</p>
 
         <pre>
-You can even put code into these pre blocks.
-  It will preserve whitespace.
-    That is helpful for formatted code.
+    function convertRow(row, index)
+    {
+        let out = {};
+        out.values = [];
+        for(let col in row) {
+          switch (col) {
+            case 'GEO_Region':
+            case 'GEO_Summary':
+            case 'Terminal':
+            case 'Boarding_Area':
+              out[col] = row[col];
+              break;
+            case 'Passenger_Count':
+              out[col] = +(row[col]);
+              break;
+              // these should be our time series values
+            default:
+              // convert column name into the date
+              var date = col;
+              // convert the value to float
+              var value = parseColumnName(row[col]);
+              // add them to our values
+              out.values.push({
+                'date': date,
+                'value': value
+              });
+            }
+        }
+        return out;
+      }
         </pre>
 
         <p>You can alternatively embed a Gist if you want. There is an "embed" button on <a href="https://gist.github.com/octocat/6cad326836d38bd3a7ae">the Gist page</a> and results in something like this:</p>
@@ -256,27 +288,21 @@ You can even put code into these pre blocks.
 
           <tbody>
             <tr>
-              <td>D</td>
-              <td><i class="has-text-success fas fa-check-circle"></i></td>
-              <td>Discussion of how this grade level was satisfied. Exactly how this section should look will depend on the assignment in question. There is no requirement for formatting in this way. This is just an example of what a table element might look like for this informaiton.</td>
-            </tr>
-
-            <tr>
               <td>C</td>
               <td><i class="has-text-success fas fa-check-circle"></i></td>
-              <td>Discussion of how this grade level was satisfied.</td>
+              <td>Prototype 3 unique visualizations using Tableau Desktop.</td>
             </tr>
 
             <tr>
               <td>B</td>
-              <td><i class="has-text-warning far fa-check-circle"></i></td>
-              <td>Discussion of how this grade level was satisfied.</td>
+              <td><i class="has-text-success fas fa-check-circle"></i></td>
+              <td>D-level requirements plus implement 1 of the Tableau prototypes in D3 version 5.</td>
             </tr>
 
             <tr>
               <td>A</td>
-              <td><i class="has-text-danger fas fa-times-circle"></i></td>
-              <td>Discussion of how this grade level was not satisfied.</td>
+              <td><i class="has-text-success fas fa-check-circle"></i></td>
+              <td>D-level requirements plus implement 2 of the Tableau prototypes in D3 version 5.</td>
             </tr>
           </tbody>
 
@@ -289,22 +315,23 @@ You can even put code into these pre blocks.
         <article class="media">
           <!-- TODO: Replace with profile photo -->
           <figure class="media-left">
-            <p class="image is-128x128"><img class="is-rounded" src="profile.png"></p>
+            <p class="image is-128x128"><img class="is-rounded" src="https://lh3.googleusercontent.com/KNWH6F71pUe8XFW1WUeU9BhTevgP2cDvID0flqOkoFVU60qP0h77KM1nP123wdT5V-2fDVdQjnSC-Vk1v6WCBylXInTSKRZ0RdW5eIevxG_0B-8slRpKY-cOgubxpSCjPzmg9hqb_t3nwlQhI_RUbEiIutruSXO4QyWCe0xblsEfFganXOoiR6zjyEQkw6DhfK_jD-nwikjofdFHrJ1ii5_uFdnEle4cI8AO0Av6oN2VpKUNLdbqcj9pYr4S2UV8MaoDlb7POeUU-yzfI482ccGI8ibSgutstY8XiYM6cr2BxvYS4NsiZ4EBRH0IC1XPd0GljojJpYXmwcQnOIlZz2O5EX19r5OMVk2qLba0cjhZW5hYQ8HSeXK8DbPwT4FnieuKDRh0P8esJSil1Y6G3QBqjsC6mTR_lB5iFgAJhzdNZUQUZXNfzFQF6v2-xkkh25Kj2b5Fz1fklmcQaYaQV8NY0Edx5QkO3TJ_CKi_teK-kbyAUi6D4qfjWIyl8Rk1H_gM5MhPOXQOzngK79_uTuwfD8eKJHmOvwoflo4sCaYogwRfLh9DjNS4BKvH5JV9R5GSQ8rVakndV2uwx0D08b06ZRFuTirnPuDrX5QmhbIZwZeoSyiGT1M976jWuwb2N7u9HrQlro4OEB7PJa9CAe2kgVY7opw1L2oP1MCneMKgKzrwe0TBlRA=w1080-h1350-no"></p>
           </figure>
 
           <div class="media-content">
             <div class="content">
               <!-- TODO: Replace with contact information -->
               <p>
-                <strong>Full Name</strong><br/>
+                <strong>Dharti Madeka</strong><br/>
                 CS Major, <a href="https://www.usfca.edu/">University of San Francisco</a><br/>
-                <em>Expected Graduation: 20??</em><br/>
-                <i class="fas fa-envelope"></i> <a href="mailto:username@dons.usfca.edu">username@dons.usfca.edu</a>
-              </p>
-
-              <!-- TODO: Replace with brief biography -->
-              <p>
-                Here is a brief bio about yourself. A good rule of thumb is to include at least one technical tidbit (favorite area or course within computer science), and one fun tidbit (such as loving dogs).
+                <em>Expected Graduation: May, 2020</em><br/>
+                <i class="fas fa-envelope"></i> <a href="mailto:dpmadeka@dons.usfca.edu">dpmadeka@dons.usfca.edu</a>
+                <br/>
+                <i class="fab fa-github-alt"></i> <a href="https://github.com/Dhartim">Github</a>
+                <br/>
+                <i class="fab fa-linkedin-in"></i> <a href="https://www.linkedin.com/in/ dharti-madeka">Linkedin</a>
+                <br/>
+                <span><i class="fas fa-mobile"></i> (502)-2943295</span>
               </p>
 
               <!-- TODO: Replace or remove tags -->
@@ -312,13 +339,18 @@ You can even put code into these pre blocks.
               <div class="heading">Skills</div>
 
               <div class="tags">
-                <span class="tag">Python</span>
-                <span class="tag">C</span>
                 <span class="tag">Java</span>
                 <span class="tag">JavaScript</span>
                 <span class="tag">HTML</span>
                 <span class="tag">CSS</span>
-                <span class="tag">SVG</span>
+                <span class="tag">Github / Git</span>
+                <span class="tag">BootStrap</span>
+                <span class="tag">REST</span>
+                <span class="tag">UI/UX Design thinking</span>
+                <span class="tag">ReactJS</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">OracleDB</span>
+                <span class="tag">PostgreSQL</span>
               </div>
             </div>
           </div>
