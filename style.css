@@ -1,13 +1,16 @@
 body{
-  font-family: Roboto;
+  /* font-family: Roboto;
   font-weight: 300;
   font-size: 16pt;
-  background-color: wheat;
+  background-color: wheat; */
   margin: 10px;
   padding: 0px;
 }
 
 .barchart{
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 16pt;
   width: 950px;
   height: 490px;
   background-color: white;
@@ -28,17 +31,15 @@ rect.bar {
 #y-axis-label,
 #y-axis text {
   font-size: 10pt;
-  fill: #888888;
+  fill: #88888;
   font-family: Roboto;
-  font-weight: 300;
+  font-weight: 500;
 }
 
 text.title {
   font-family: Roboto;
   font-size: 12pt;
 }
-
-
 
 #x-axis line {
   /* tick marks */
@@ -57,6 +58,6 @@ text.title {
 
 .grid line {
   stroke: lightgrey;
-  stroke-opacity: 0.7;
+  stroke-opacity: 0.5;
   shape-rendering: crispEdges;
 }

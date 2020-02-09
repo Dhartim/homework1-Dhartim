@@ -1,15 +1,11 @@
 
 
 let drawBarChart = function(data){
-//  console.log(data);
-  //console.log(data[0].Passenger_Count);
-
   //creates a map of terminal
   let terminal = data.map(row => row['Terminal']);
   terminal.sort();
   //creates a map of passengerCount
   let passengerCount = data.map(row => row['Passenger_Count']);
-  console.log(passengerCount);
   //gives max passenger count from these
   let countMax = d3.max(passengerCount.values());
   //console.log(passengerCount);
@@ -29,9 +25,9 @@ let drawBarChart = function(data){
   console.log([countMin, countMax]);
   //margin for axis, titles, ticks and so on
   let margin ={
-    top:30,
+    top:50,
     right: 20,
-    bottom: 50,
+    bottom: 30,
     left: 90
   };
   //plots for svg
@@ -69,6 +65,33 @@ let drawBarChart = function(data){
     let yGroup = plot.append("g").attr("id", "y-axis");
     yGroup.call(yAxis);
 
+    //label for x-axis
+    svg.append("text")
+        .attr("class", "text")
+        .attr("dx","1em")
+        .attr("transform",
+        "translate(" + (plotWidth/2) + " ," +
+                                 (margin.top) + ")")
+      .style("text-anchor", "middle")
+      .text("Terminals");
+
+      //label for y-axis
+    svg.append("text")
+        .attr("class", "text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.right + 20)
+        .attr("x",0 - (plotHeight / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Max Number of Passenger Count");
+    // for graph title
+    svg.append("text")
+    .attr("class", "title")
+    .attr("x", (plotWidth / 2))
+    .attr("y", 0 + (margin.top / 2))
+    .attr("text-anchor", "middle")
+    .text("Max Passenger Count over each Terminal");
+
     //grid lines
     // Gridline
    var gridlines = d3.axisLeft()
@@ -93,32 +116,15 @@ let drawBarChart = function(data){
       .attr("height", function(d) { return plotHeight - passengerYScale(d.Passenger_Count); })
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      //label for x-axis
-  svg.append("text")
-      .attr("class", "text")
-      .attr("transform",
-      "translate(" + (plotWidth/2) + " ," +
-                               (plotHeight + margin.top + 40) + ")")
-    .style("text-anchor", "middle")
-    .text("Terminals");
-
-    //label for y-axis
-  svg.append("text")
-      .attr("class", "text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.right + 20)
-      .attr("x",0 - (plotHeight / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("Max Number of Passenger Count");
-// for graph title
-svg.append("text")
-  .attr("class", "title")
-  .attr("x", (plotWidth / 2))
-  .attr("y", 0 + (margin.top / 2))
-  .attr("text-anchor", "middle")
-  .text("Max Passenger Count over each Terminal");
-
+  //caption
+  // svg.append("text")
+  //     .attr("class", "text")
+  //     .attr("transform",
+  //     "translate(" + 30 + " ," +
+  //                              (plotHeight + margin.top + 50) + ")")
+  //   .style("text-anchor", "left")
+  //   .text("Maximum number of Passenger Count for each Terminal." +
+  //     "Data Source := https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data");
 
     // so we can access some of these elements later...
     // add them to our chart global
@@ -130,4 +136,9 @@ svg.append("text")
 
   chart.passengerYScale = passengerYScale;
   chart.terminalXScale = terminalXScale;
+  chart.gridlines = gridlines;
 };
+
+let drawLineChart = function(data){
+  let svg = d3.select("body").select(".linechart");
+}

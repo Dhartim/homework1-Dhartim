@@ -1,5 +1,6 @@
 //this will load data from csv file
 d3.csv("data.csv", convertRow).then(drawBarChart);
+d3.csv("data.csv", convertRow).then(drawLineChart);
 let parseColumnName = d3.timeParse('%Y%m');
 
 //convert row will change datatype of each row to data we want.
