@@ -19,7 +19,7 @@ body{
 
 rect.bar {
   stroke: none;
-  fill: #00543c;
+  fill: #3172bd;
 }
 
 #x-axis text,
@@ -53,4 +53,10 @@ text.title {
 
   stroke: #bbbbbb;
   stroke-width: 1px;
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
 }

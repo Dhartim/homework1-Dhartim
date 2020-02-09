@@ -40,8 +40,14 @@ let drawBarChart = function(data){
   let plotWidth = bounds.width - margin.right - margin.left;
   let plotHeight = bounds.height - margin.top - margin.bottom;
 //scales
-  let passengerYScale = d3.scaleLinear().domain([0, d3.max(data, function(d) { return d.Passenger_Count; })]).range([plotHeight,0]).nice();
-  let terminalXScale = d3.scaleBand().domain(terminal).rangeRound([0, plotWidth]).paddingInner(0.1);
+  let passengerYScale = d3.scaleLinear()
+          .domain([0, d3.max(data, function(d) { return d.Passenger_Count; })])
+          .range([plotHeight,0])
+          .nice();
+  let terminalXScale = d3.scaleBand()
+          .domain(terminal)
+          .rangeRound([0, plotWidth])
+          .paddingInner(0.1);
 
   //plot it on svg
   let plot = svg.append("g").attr("id", "plot");
@@ -63,6 +69,18 @@ let drawBarChart = function(data){
     let yGroup = plot.append("g").attr("id", "y-axis");
     yGroup.call(yAxis);
 
+    //grid lines
+    // Gridline
+   var gridlines = d3.axisLeft()
+                     .tickFormat("")
+                     .tickSize(-plotWidth)
+                     .scale(passengerYScale);
+
+   svg.append("g")
+      .attr("class", "grid")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .call(gridlines);
+
     //draw bars in graph
     // append the rectangles for the bar chart
   svg.selectAll(".bar")
@@ -82,7 +100,7 @@ let drawBarChart = function(data){
       "translate(" + (plotWidth/2) + " ," +
                                (plotHeight + margin.top + 40) + ")")
     .style("text-anchor", "middle")
-    .text("Terminal");
+    .text("Terminals");
 
     //label for y-axis
   svg.append("text")
@@ -100,6 +118,7 @@ svg.append("text")
   .attr("y", 0 + (margin.top / 2))
   .attr("text-anchor", "middle")
   .text("Max Passenger Count over each Terminal");
+
 
     // so we can access some of these elements later...
     // add them to our chart global
