@@ -1,0 +1,56 @@
+body{
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 16pt;
+  background-color: wheat;
+  margin: 10px;
+  padding: 0px;
+}
+
+.barchart{
+  width: 950px;
+  height: 490px;
+  background-color: white;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+}
+
+/* svg elements are styled differently from html elements */
+
+rect.bar {
+  stroke: none;
+  fill: #00543c;
+}
+
+#x-axis text,
+.text,
+#x-axis-label,
+#y-axis-label,
+#y-axis text {
+  font-size: 10pt;
+  fill: #888888;
+  font-family: Roboto;
+  font-weight: 300;
+}
+
+text.title {
+  font-family: Roboto;
+  font-size: 12pt;
+}
+
+
+
+#x-axis line {
+  /* tick marks */
+  fill: none;
+  stroke: none;
+}
+
+#x-axis path,
+#y-axis path,
+#y-axis line {
+  fill: none;
+
+  stroke: #bbbbbb;
+  stroke-width: 1px;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Bar chart</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- this allows us to use the non-standard Roboto web font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300italic" rel="stylesheet" type="text/css">
+    <!-- include d3.js v5 -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!-- include d3.js modules -->
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="chart.js"></script>
+    <script src="countData.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <svg class="barchart"> </svg>
+    <script type="text/javascript">
+      // creating a global variable to hold our axis and scales
+        let chart = {};
+    </script>
+  </body>
+</html>
