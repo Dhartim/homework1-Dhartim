@@ -8,29 +8,33 @@ let parseColumnName = d3.timeParse('%Y%m');
 function convertRow(row, index)
 {
   let out = {};
-  out.values = [];
+  out.num = 0;
+  out.date = new Date();
   for(let col in row) {
     switch (col) {
       case 'GEO_Region':
-      case 'GEO_Summary':
+      // case 'GEO_Summary':
       case 'Terminal':
-      case 'Boarding_Area':
+      // case 'Boarding_Area':
         out[col] = row[col];
         break;
       case 'Passenger_Count':
-        out[col] = +(row[col]);
+        out.num = +(row[col]);
+        break;
+      case 'Activity_Period':
+        out.date = parseColumnName(row[col]);
         break;
         // these should be our time series values
-      default:
-        // convert column name into the date
-        var date = col;
-        // convert the value to float
-        var value = parseColumnName(row[col]);
-        // add them to our values
-        out.values.push({
-          'date': date,
-          'value': value
-        });
+      // default:
+      //   // convert column name into the date
+      //   var date = col;
+      //   // convert the value to float
+      //   var value = parseColumnName(row[col]).getMonth();
+      //   // add them to our values
+      //   out.values.push({
+      //     'date': date,
+      //     'value': value
+      //   });
       }
   }
   return out;
