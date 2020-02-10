@@ -109,9 +109,9 @@
           Created bar chart in Tableau and developed it using d3.js
         </p>
 
-        <p>This would be an excellent place to describe what this page is for, what to find in different sections, describe any motivation or theme behind your visualizations, and so on.</p>
+        <p>Following visualization is a prototype of bar chart using tableau.</p>
 
-        <p>You should not use this template unless you intend to customize it. Make it your own. Keep in mind this simple template is over 300 lines! You can see other examples of websites using Bulma at their showcase: <a href="https://bulma.io/expo/">bulma.io/expo/</a>.</p>
+        <p><img src="barchartTableau.png" alt="BarChart Tableau prototype" width="960" height="500"/></p>
 
   <!-- </head>
   <body>
@@ -134,8 +134,9 @@
         <div>
           <caption><strong>Caption: </strong> Maximum number of Passenger Count for each Terminal. <br/>
             Data Source := <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">
-                    https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data
-              </a>
+            https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data</a>
+            <br/>
+            Dharti Madeka
           </caption>
         </div>
       </svg>
@@ -147,21 +148,25 @@
 
     <h4></h4>
 
-    <p>You will likely need to include instructions on how to interpet and use the visualization. In the case above, if you click the three dots <i class="fas fa-ellipsis-h has-text-grey-light	"></i> above it will open a menu where you can either save the visualization to a SVG or PNG, or alternatively open it up in the online Vega Editor.</p>
+    <h4>Writeups</h4>
 
-    <h4>Discussion</h4>
+    <p>Maximum Passenger count is encoded by the length of the bar, so longer bars represent maximum passenger count.
+      Used d3 and <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">
+      Air-Traffic-Passenger-Statistics</a> to wrangle dataset. Filter out dataset using the source link. Manipulated Activity_period field from "text" to date type and
+      converted Passenger_Count from text to number using JavaScript.
 
-    <p>You may also need other sections, like a discussion section, per-visualization section on data wrangling, and others. Because of the extra content and code visualizations take, it might be worthwhile to break up your pages into one home page and then one page per visualization.</p>
+      From the this visualization can conclude that Maximum number of passenger travel through terminal 3. This can be true as SF terminal 3 is used by both
+      Domestic as well as International passengers
+    </p>
 
     <span class="heading">Acknowledgements</span>
 
     <p>
-      <a href="#">Link to insiration</a><br/>
-      <a href="#">Link to StackOverflow snippet</a>
+      <a href="https://gist.github.com/sjengle/01c24c71016a97938beae8c778c15911">Link to Sophie's bar chart</a><br/>
     </p>
 
     <p class="is-6">
-      <em>Thanks to Person Name for their suggestion to do something with the visualization.</em>
+      <em></em>
     </p>
 
     <h2 id="about">About</h2>

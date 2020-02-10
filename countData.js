@@ -13,7 +13,7 @@ function convertRow(row, index)
   for(let col in row) {
     switch (col) {
       case 'GEO_Region':
-      // case 'GEO_Summary':
+      case 'GEO_Summary':
       case 'Terminal':
       // case 'Boarding_Area':
         out[col] = row[col];

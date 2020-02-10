@@ -6,7 +6,7 @@ let drawBarChart = function(data){
   terminal.sort();
   //creates a map of passengerCount
   let passengerCount = data.map(row => row.num);
-  console.log(passengerCount);
+  //console.log(passengerCount);
   //gives max passenger count from these
   let countMax = d3.max(passengerCount.values());
   //console.log(passengerCount);
@@ -33,7 +33,7 @@ let drawBarChart = function(data){
   };
   //plots for svg
   let bounds = svg.node().getBoundingClientRect();
-  console.log(bounds.width + " , " + bounds.height);
+//  console.log(bounds.width + " , " + bounds.height);
   let plotWidth = bounds.width - margin.right - margin.left;
   let plotHeight = bounds.height - margin.top - margin.bottom;
 //scales
@@ -74,7 +74,7 @@ let drawBarChart = function(data){
         "translate(" + (plotWidth/2) + " ," +
                                  (margin.top) + ")")
       .style("text-anchor", "middle")
-      .text("Terminals");
+      .text("Terminal");
 
       //label for y-axis
     svg.append("text")
@@ -117,16 +117,6 @@ let drawBarChart = function(data){
       .attr("height", function(d) { return plotHeight - passengerYScale(d.num); })
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  //caption
-  // svg.append("text")
-  //     .attr("class", "text")
-  //     .attr("transform",
-  //     "translate(" + 30 + " ," +
-  //                              (plotHeight + margin.top + 50) + ")")
-  //   .style("text-anchor", "left")
-  //   .text("Maximum number of Passenger Count for each Terminal." +
-  //     "Data Source := https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data");
-
     // so we can access some of these elements later...
     // add them to our chart global
   chart.plotWidth = plotWidth;
@@ -152,13 +142,21 @@ let drawBarChart = function(data){
 
       //gives passenger counts
       let passengerCount = monthly.map(d => d.num);
+      //GEO_Summary
+      let geoSummary = data.map(row => row['GEO_Summary']);
+      geoSummary.sort();
+      console.log(geoSummary);
+      // Nest the entries by symbol
+    var dataNest = d3.nest()
+        .key(function(d) {return d.GEO_Summary;})
+        .entries(data);
 
       let min = 0;
       let max = Math.max(...passengerCount);
       if (isNaN(max)) {
         max = 0;
       }
-      console.log("count bounds:", [min, max]);
+    //  console.log("count bounds:", [min, max]);
 
       let svg = d3.select("body").select(".linechart");
       console.assert(svg.size() == 1);
@@ -211,7 +209,9 @@ let drawBarChart = function(data){
           }
       };
 
-
+      let line1 = d3.line()
+            .x(function(d) {return monthXScale(d.month)+40})
+            .y(function(d) {return passengerYScale(d.num)+5});
 
       plot.append("path")
       .datum(pairs)
@@ -220,10 +220,11 @@ let drawBarChart = function(data){
       .attr("stroke-width", 1.5)
       .attr("width", monthXScale.bandwidth())
       .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
-      .attr("d", d3.line()
-        .x(function(d) { return monthXScale(d.month) + 40})
-        .y(function(d) { return passengerYScale(d.num)+5})
-        //.curve(d3.curveMonotoneX)
+      .attr("d", line1
+      // d3.line()
+      //   .x(function(d) { return monthXScale(d.month) + 40})
+      //   .y(function(d) { return passengerYScale(d.num)+5})
+      //   //.curve(d3.curveMonotoneX)
       );
 
       //label for x-axis
