@@ -55,6 +55,8 @@ let drawBarChart = function(data){
   let xAxis = d3.axisBottom(terminalXScale);
   let yAxis = d3.axisLeft(passengerYScale);
 
+  yAxis.ticks(5, "f").tickFormat(d3.formatPrefix(".0", 1e6));
+
   let xGroup = plot.append("g").attr("id", "x-axis");
     xGroup.call(xAxis);
 
@@ -133,12 +135,14 @@ let drawBarChart = function(data){
 // ??DRAW LINE Chart
 
  let drawLineChart = function (data) {
-      //count num of pas for each month (combine months)
-      let monthly = Object.values(data.reduce((r, o) => {
-        r[o.date.getMonth()] = r[o.date.getMonth()] || {month: o.date.getMonth()+1, num : 0};
-        r[o.date.getMonth()].num += +o.num;
-        return r;
-      },{}));
+   var monthsNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+   //count num of pas for each month (combine months)
+   let monthly = Object.values(data.reduce((r, o) => {
+     r[o.date.getMonth()] = r[o.date.getMonth()] || {month: monthsNames[o.date.getMonth()], num : 0};
+     r[o.date.getMonth()].num += +o.num;
+     return r;
+   },{}))
 
       //gives passenger counts
       let passengerCount = monthly.map(d => d.num);
@@ -165,7 +169,7 @@ let drawBarChart = function(data){
       top:    50,
       right:  20,
       bottom: 30,
-      left:  90
+      left:  50
       };
 
       // now we can calculate how much space we have to plot
@@ -192,7 +196,7 @@ let drawBarChart = function(data){
 
       let xAxis = d3.axisBottom(monthXScale);
       let yAxis = d3.axisLeft(passengerYScale);
-
+      yAxis.ticks(5, "f").tickFormat(d3.formatPrefix(".0", 1e6));
       let xGroup = plot.append("g").attr("id", "x-axis");
       xGroup.call(xAxis);
       xGroup.attr("transform", translate(0, plotHeight));
@@ -202,12 +206,6 @@ let drawBarChart = function(data){
 
 
       let pairs = Array.from(monthly);
-
-      Date.locale = {
-          en: {
-             month_names_short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-          }
-      };
 
       let line1 = d3.line()
             .x(function(d) {return monthXScale(d.month)+40})
@@ -245,14 +243,14 @@ let drawBarChart = function(data){
           .attr("x",0 - (plotHeight / 2))
           .attr("dy", "1em")
           .style("text-anchor", "middle")
-          .text("Max Number of Passenger Count");
+          .text("Passenger Count");
       // for graph title
       svg.append("text")
       .attr("class", "title")
       .attr("x", (plotWidth / 2))
       .attr("y", 0 + (margin.top / 2))
       .attr("text-anchor", "middle")
-      .text("Max Passenger Count over months in Activity Period ");
+      .text("Maximum number of passengers travelled over time ");
 
       //grid lines
       // Gridline
