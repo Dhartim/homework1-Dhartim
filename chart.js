@@ -138,17 +138,14 @@ let drawBarChart = function(data){
 
       //gives passenger counts
       let passengerCount = monthly.map(d => d.num);
-      //GEO_Summary
-      // let geoSummary = data.map(row => row['GEO_Summary']);
-      // geoSummary.sort();
-      // console.log(geoSummary);
-      // Nest the entries by symbol
+      
+      //separate data from geo summary
       var lineData = {
       International: [],
       Domestic: []
     }
-    
-    //   //DATA from GEO Summary
+
+    //DATA from GEO Summary
     data.forEach(function (d) {
       if (d.GEO_Summary === "International") {
             lineData.International.push({
@@ -220,8 +217,8 @@ let drawBarChart = function(data){
       let xAxis = d3.axisBottom(monthXScale);
       let yAxis = d3.axisLeft(passengerYScale);
       d3.format(".2s")(42e6)
-      //yAxis.ticks(5, "f").tickFormat(d3.formatPrefix(".0", 42e6));
-      yAxis.ticks(10, "f").tickFormat(d3.formatPrefix(".0", 50000));
+      yAxis.ticks(5, "f").tickFormat(d3.formatPrefix(".0", 42e6));
+      //yAxis.ticks(10, "f").tickFormat(d3.formatPrefix(".0", 50000));
       let xGroup = plot.append("g").attr("id", "x-axis");
       xGroup.call(xAxis);
       xGroup.attr("transform", translate(0, plotHeight));
