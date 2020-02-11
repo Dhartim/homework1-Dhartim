@@ -134,6 +134,8 @@ let drawBarChart = function(data){
      return r;
    },{}))
 
+   //console.log(monthly);
+
       //gives passenger counts
       let passengerCount = monthly.map(d => d.num);
       //GEO_Summary
@@ -141,12 +143,40 @@ let drawBarChart = function(data){
       // geoSummary.sort();
       // console.log(geoSummary);
       // Nest the entries by symbol
-
+      var lineData = {
+      International: [],
+      Domestic: []
+    }
+    
     //   //DATA from GEO Summary
-    // var dataNest = d3.nest()
-    //     .key(function(d) {return d.GEO_Summary;})
-    //     .entries(data);
-    //   console.log(dataNest);
+    data.forEach(function (d) {
+      if (d.GEO_Summary === "International") {
+            lineData.International.push({
+              'num' : d.num,
+              'date' : d.date
+            })
+      }else if(d.GEO_Summary === "Domestic"){
+        lineData.Domestic.push({
+          'num' : d.num,
+          'date' : d.date
+        })
+
+      }
+    });
+    //got separate data for international and domestic
+    let International =  Object.values(lineData.International.reduce((r, o) => {
+      r[o.date.getMonth()] = r[o.date.getMonth()] || {month: monthsNames[o.date.getMonth()], num : 0};
+      r[o.date.getMonth()].num += +o.num;
+      return r;
+    },{}))
+    console.log(International);
+    let Domestic =  Object.values(lineData.Domestic.reduce((r, o) => {
+      r[o.date.getMonth()] = r[o.date.getMonth()] || {month: monthsNames[o.date.getMonth()], num : 0};
+      r[o.date.getMonth()].num += +o.num;
+      return r;
+    },{}))
+    console.log(Domestic);
+
       let min = 0;
       let max = d3.max(passengerCount); //use same for bar chart
       if (isNaN(max)) {
@@ -161,7 +191,7 @@ let drawBarChart = function(data){
       top:    60,
       right:  20,
       bottom: 40,
-      left:  50
+      left:  70
       };
 
       // now we can calculate how much space we have to plot
@@ -190,8 +220,8 @@ let drawBarChart = function(data){
       let xAxis = d3.axisBottom(monthXScale);
       let yAxis = d3.axisLeft(passengerYScale);
       d3.format(".2s")(42e6)
-      yAxis.ticks(5, "f").tickFormat(d3.formatPrefix(".0", 42e6));
-
+      //yAxis.ticks(5, "f").tickFormat(d3.formatPrefix(".0", 42e6));
+      yAxis.ticks(10, "f").tickFormat(d3.formatPrefix(".0", 50000));
       let xGroup = plot.append("g").attr("id", "x-axis");
       xGroup.call(xAxis);
       xGroup.attr("transform", translate(0, plotHeight));
@@ -204,55 +234,49 @@ let drawBarChart = function(data){
 
       let line1 = d3.line()
             //x(function(d){return 5})
-            .x(function(d) {return (monthXScale(d.month) + 40)})
-            .y(function(d) {return passengerYScale(d.num) + 5});
-
+            .x(function(d) {return (monthXScale(d.month)+ 100)})
+            .y(function(d) {return passengerYScale(d.num)});
+      let line2 = d3.line()
+            //x(function(d){return 5})
+            .x(function(d) {return (monthXScale(d.month) + 100)})
+            .y(function(d) {return passengerYScale(d.num)});
             // .x(function(d) {let monthtoPlot = d.date.getMonth(); return (monthXScale(months[monthtoPlot]) + 50)})
             // .y(function(d) {return passengerYScale(d.num)});
 
-            // set the colour scale
-        //  var color = d3.scaleOrdinal(d3.schemeCategory10);
+// CODE FOR MULTI LINE
+svg.append("path")
+      .datum(International)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("width", monthXScale.bandwidth())
+      .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
+      .attr("d", line1);
 
-        //  legendSpace = plotWidth/dataNest.length; // spacing for the legend
-
-          // // Draw the lines
-          // var currency = svg.append('g')
-          // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-          //     .selectAll(".currency")
-          //   .data(dataNest)
-          //   .enter().append("g")
-          //   .attr("class", "currency");
-          //
-          // currency.append("path")
-          //   .attr("class", "line")
-          //   .attr("d", function(d) {
-          //     return line1(d.values);
-          //   })
-          //   .style("stroke", function(d) {
-          //     return color(d.name);
-          //   });
-          // // // Loop through each symbol / key
-          // // dataNest.forEach(function(d,i) {
-          // //
-          // //     svg.append("path")
-          // //         .attr("class", "line")
-          // //         .style("stroke", function() { // Add the colours dynamically
-          // //             return d.color = color(d.key); })
-          // //         .attr("id", 'tag'+d.key.replace(/\s+/g, '')) // assign an ID
-          // //         .attr("d", line1(d.values));
-          // // });
-
+    svg.append("path")
+      .datum(Domestic)
+      .attr("fill", "none")
+      .attr("stroke", "tomato")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
+      .attr("width", monthXScale.bandwidth())
+      .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
+      .attr("d", line2);
+// CODE FOR MULTI-LINE IS OVER
 
 //CODE FOR SINGLE LINE
-      plot.append("path")
+    /*  plot.append("path")
       .datum(pairs)
       .attr("fill", "none")
       .attr("stroke", "steelblue")
       .attr("stroke-width", 3)
       .attr("width", monthXScale.bandwidth())
       .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
-      .attr("d", line1);
-
+      .attr("d", line1);*/
+// CODE FOR SINGLE LINE IS OVER
       //label for x-axis
       svg.append("text")
           .attr("class", "x-axis-label")
