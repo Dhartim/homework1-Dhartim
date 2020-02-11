@@ -114,7 +114,8 @@
         </p>
 
         <p>This page shows visualization of line chart. Used tableau to create it. <br/>
-          Kept x-axis as Activity period, which was further filtered out to get months in year 2019 and y-axis as passenger count. </p>
+          Kept x-axis as Activity period, which was further filtered out to get months in year 2019 and y-axis as passenger count.
+          Geo Summary is separated using color scheme for blue as Domestic and orange as International. </p>
 
         <p><img src="multilinechart.png" alt="line chart prototype" width="960" height="500"/></p>
 
@@ -123,7 +124,7 @@
     <div id="vis">
       <svg class="linechart">
         <div>
-          <caption><strong>Caption: </strong> The trend of maximum number of Passenger Count for Activity Period Month. <br/>
+          <caption><strong>Caption: </strong> The trend of maximum Passenger Count for Activity Period Month separated as International and Domestic. <br/>
             Data Source := <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">
                     https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data
               </a><br/>
@@ -145,10 +146,10 @@
     <p> Passenger count is encoded along y-axis, and x-axis has time period. line represent maximum number of passengers travlled over time period.
       Used d3 and <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">
       Air-Traffic-Passenger-Statistics</a> to wrangle dataset. Filter out dataset using the source link. Manipulated Activity_period field from "text" to date type and
-      converted Passenger_Count from text to number using JavaScript.
+      converted Passenger_Count from text to number using JavaScript. Group International and Domestic over months and passenger count .
 
       This visualization can conclude that in the month of July and August maximum number of passengers travelled because at this time, there are students flying internationally,
-    as well as domestic people get back from their summer break. </p>
+    as well as domestic people get back from their summer break. There was maximum passenger from Domestic flights over International. </p>
 
     <span class="heading">Acknowledgements</span>
 
@@ -157,7 +158,8 @@
     </p>
 
     <p class="is-6">
-      <em>Thanks to Professor Sophie to guide me for axis data format.</em>
+      <em>Thanks to Professor Sophie to guide me for axis data format.</em><br/>
+      <em>Thanks to Allison Wong to help me with multi-line graph</em>
     </p>
 
     <h2 id="about">About</h2>
