@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- TODO: Change title -->
-    <title>Homework 1 Template</title>
+    <title>Homework 1 Area Chart</title>
 
     <!-- Load Bulma from CDN (consider saving it to repository instead) -->
     <!-- https://bulma.io/ -->
@@ -32,9 +32,9 @@
     <div class="hero-body">
       <div class="container">
         <!-- TODO: Change title -->
-        <h1 class="title">Bar Chart </h1>
+        <h1 class="title">Area Chart </h1>
         <!-- TODO: Change subtitle -->
-        <h2 class="subtitle">For this assignment developed bar chart, visualized dataset with basic visualization techniques using Tableau Desktop and D3.js (version 5).
+        <h2 class="subtitle">For this assignment developed area chart, visualized dataset with basic visualization techniques using Tableau Desktop.
           </h2>
       </div>
     </div>
@@ -106,32 +106,18 @@
       <div class="content">
         <h1 class="title">
           <!-- TODO: Change page title -->
-          Bar chart
+          Area chart
         </h1>
         <p class="subtitle">
           <!-- TODO: Change page subtitle -->
-          Created bar chart in Tableau and developed it using d3.js
+          Created area chart in Tableau.
         </p>
 
-        <p>Following visualization is a prototype of bar chart using tableau.</p>
-
+        <p>Following visualization is a prototype of area chart using tableau.
+          Acitvity period over x-axis and Distinct count of Boarding Area over y-axis. Color represents different Geo Region.</p>
         <p></p>
 
-  <!-- </head>
-  <body>
-    <svg class="barchart"> </svg>
-    <script type="text/javascript">
-      // creating a global variable to hold our axis and scales
-        let chart = {};
-    </script> -->
     <h2 id="visualizations">Visualizations</h2>
-
-    <!-- https://github.com/vega/vega-embed#basic-example -->
-    <p>It is possible to embed some visualizations directly here too. Here is <a href="https://github.com/vega/vega-embed#basic-example">an example</a> using Vega-Lite:</p>
-
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
 
     <div id="vis">
       <img src="areachartTableau.png" alt="BarChart Tableau prototype" width="960" height="500"/>
@@ -152,21 +138,14 @@
 
     <h4></h4>
 
-    <h4>Writeups</h4>
+    <h3>Writeups</h3>
 
-    <p>Maximum Passenger count is encoded by the length of the bar, so longer bars represent maximum passenger count.
-      Used d3 and <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">
-      Air-Traffic-Passenger-Statistics</a> to wrangle dataset. Filter out dataset using the source link. Manipulated Activity_period field from "text" to date type and
-      converted Passenger_Count from text to number using JavaScript.
+    <p>Maximum Number of Boarding Area count is along area covered in graph, so larger area represents more boarding area.
+      Used <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">
+      Air-Traffic-Passenger-Statistics</a> to wrangle dataset. Filter out dataset using the source link.
 
-      From the this visualization can conclude that Maximum number of passenger travel through terminal 3. This can be true as SF terminal 3 is used by both
-      Domestic as well as International passengers
-    </p>
-
-    <span class="heading">Acknowledgements</span>
-
-    <p>
-      <a href="https://gist.github.com/sjengle/01c24c71016a97938beae8c778c15911">Link to Sophie's bar chart</a><br/>
+      This visualization can conclude that US has used maximum boarding area over the period of time. In summer break more boarding area
+      are utilized.
     </p>
 
     <p class="is-6">
@@ -180,7 +159,7 @@
     <article class="media">
       <!-- TODO: Replace with profile photo -->
       <figure class="media-left">
-        <p class="image is-128x128"><img class="is-rounded" src="https://lh3.googleusercontent.com/KNWH6F71pUe8XFW1WUeU9BhTevgP2cDvID0flqOkoFVU60qP0h77KM1nP123wdT5V-2fDVdQjnSC-Vk1v6WCBylXInTSKRZ0RdW5eIevxG_0B-8slRpKY-cOgubxpSCjPzmg9hqb_t3nwlQhI_RUbEiIutruSXO4QyWCe0xblsEfFganXOoiR6zjyEQkw6DhfK_jD-nwikjofdFHrJ1ii5_uFdnEle4cI8AO0Av6oN2VpKUNLdbqcj9pYr4S2UV8MaoDlb7POeUU-yzfI482ccGI8ibSgutstY8XiYM6cr2BxvYS4NsiZ4EBRH0IC1XPd0GljojJpYXmwcQnOIlZz2O5EX19r5OMVk2qLba0cjhZW5hYQ8HSeXK8DbPwT4FnieuKDRh0P8esJSil1Y6G3QBqjsC6mTR_lB5iFgAJhzdNZUQUZXNfzFQF6v2-xkkh25Kj2b5Fz1fklmcQaYaQV8NY0Edx5QkO3TJ_CKi_teK-kbyAUi6D4qfjWIyl8Rk1H_gM5MhPOXQOzngK79_uTuwfD8eKJHmOvwoflo4sCaYogwRfLh9DjNS4BKvH5JV9R5GSQ8rVakndV2uwx0D08b06ZRFuTirnPuDrX5QmhbIZwZeoSyiGT1M976jWuwb2N7u9HrQlro4OEB7PJa9CAe2kgVY7opw1L2oP1MCneMKgKzrwe0TBlRA=w1080-h1350-no"></p>
+        <p class="image is-128x128"><img class="is-rounded" src="profile.jpg" /></p>
       </figure>
 
       <div class="media-content">

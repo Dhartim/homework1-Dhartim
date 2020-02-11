@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- TODO: Change title -->
-    <title>Homework 1 Template</title>
+    <title>Homework 1 Line Chart</title>
 
     <!-- Load Bulma from CDN (consider saving it to repository instead) -->
     <!-- https://bulma.io/ -->
@@ -34,7 +34,7 @@
         <!-- TODO: Change title -->
         <h1 class="title">Line Chart </h1>
         <!-- TODO: Change subtitle -->
-        <h2 class="subtitle">For this assignment developed bar chart, visualized dataset with basic visualization techniques using Tableau Desktop and D3.js (version 5).
+        <h2 class="subtitle">For this assignment developed line chart, visualized dataset with basic visualization techniques using Tableau Desktop and D3.js (version 5).
           </h2>
       </div>
     </div>
@@ -113,30 +113,17 @@
           Created line chart in Tableau and developed it using d3.js
         </p>
 
-        <p>This would be an excellent place to describe what this page is for, what to find in different sections, describe any motivation or theme behind your visualizations, and so on.</p>
+        <p>This page shows visualization of line chart. Used tableau to create it. <br/>
+          Kept x-axis as Activity period, which was further filtered out to get months in year 2019 and y-axis as passenger count. </p>
 
         <p><img src="linechartTableau.png" alt="line chart prototype" width="960" height="500"/></p>
 
-  <!-- </head>
-  <body>
-    <svg class="barchart"> </svg>
-    <script type="text/javascript">
-      // creating a global variable to hold our axis and scales
-        let chart = {};
-    </script> -->
     <h2 id="visualizations">Visualizations</h2>
-
-    <!-- https://github.com/vega/vega-embed#basic-example -->
-    <p>It is possible to embed some visualizations directly here too. Here is <a href="https://github.com/vega/vega-embed#basic-example">an example</a> using Vega-Lite:</p>
-
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
 
     <div id="vis">
       <svg class="linechart">
         <div>
-          <caption><strong>Caption: </strong> The trend of maximum of Passenger Count for Activity Period Month. <br/>
+          <caption><strong>Caption: </strong> The trend of maximum number of Passenger Count for Activity Period Month. <br/>
             Data Source := <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">
                     https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data
               </a><br/>
@@ -144,24 +131,33 @@
           </caption>
         </div>
       </svg>
+      <script type="text/javascript">
+          d3.csv("data.csv", convertRow).then(drawLineChart);
+      </script>
+
     </div>
 
     <h4></h4>
 
 
-    <h4>Writeups</h4>
+    <h3>Writeups</h3>
 
-    <p>You may also need other sections, like a discussion section, per-visualization section on data wrangling, and others. Because of the extra content and code visualizations take, it might be worthwhile to break up your pages into one home page and then one page per visualization.</p>
+    <p> Passenger count is encoded along y-axis, and x-axis has time period. line represent maximum number of passengers travlled over time period.
+      Used d3 and <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">
+      Air-Traffic-Passenger-Statistics</a> to wrangle dataset. Filter out dataset using the source link. Manipulated Activity_period field from "text" to date type and
+      converted Passenger_Count from text to number using JavaScript.
+
+      This visualization can conclude that in the month of July and August maximum number of passengers travelled because at this time, there are students flying internationally,
+    as well as domestic people get back from their summer break. </p>
 
     <span class="heading">Acknowledgements</span>
 
     <p>
-      <a href="#">Link to insiration</a><br/>
-      <a href="#">Link to StackOverflow snippet</a>
+      <a href="https://bl.ocks.org/jqadrad/a58719d82741b1642a2061c071ae2375">Link to create multi line graph</a><br/>
     </p>
 
     <p class="is-6">
-      <em>Thanks to Person Name for their suggestion to do something with the visualization.</em>
+      <em>Thanks to Professor Sophie to guide me for axis data format.</em>
     </p>
 
     <h2 id="about">About</h2>
@@ -171,7 +167,7 @@
     <article class="media">
       <!-- TODO: Replace with profile photo -->
       <figure class="media-left">
-        <p class="image is-128x128"><img class="is-rounded" src="https://lh3.googleusercontent.com/KNWH6F71pUe8XFW1WUeU9BhTevgP2cDvID0flqOkoFVU60qP0h77KM1nP123wdT5V-2fDVdQjnSC-Vk1v6WCBylXInTSKRZ0RdW5eIevxG_0B-8slRpKY-cOgubxpSCjPzmg9hqb_t3nwlQhI_RUbEiIutruSXO4QyWCe0xblsEfFganXOoiR6zjyEQkw6DhfK_jD-nwikjofdFHrJ1ii5_uFdnEle4cI8AO0Av6oN2VpKUNLdbqcj9pYr4S2UV8MaoDlb7POeUU-yzfI482ccGI8ibSgutstY8XiYM6cr2BxvYS4NsiZ4EBRH0IC1XPd0GljojJpYXmwcQnOIlZz2O5EX19r5OMVk2qLba0cjhZW5hYQ8HSeXK8DbPwT4FnieuKDRh0P8esJSil1Y6G3QBqjsC6mTR_lB5iFgAJhzdNZUQUZXNfzFQF6v2-xkkh25Kj2b5Fz1fklmcQaYaQV8NY0Edx5QkO3TJ_CKi_teK-kbyAUi6D4qfjWIyl8Rk1H_gM5MhPOXQOzngK79_uTuwfD8eKJHmOvwoflo4sCaYogwRfLh9DjNS4BKvH5JV9R5GSQ8rVakndV2uwx0D08b06ZRFuTirnPuDrX5QmhbIZwZeoSyiGT1M976jWuwb2N7u9HrQlro4OEB7PJa9CAe2kgVY7opw1L2oP1MCneMKgKzrwe0TBlRA=w1080-h1350-no"></p>
+        <p class="image is-128x128"><img class="is-rounded" src="profile.jpg"></p>
       </figure>
 
       <div class="media-content">

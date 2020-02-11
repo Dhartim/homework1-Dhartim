@@ -106,29 +106,31 @@
       <div class="content">
         <h1 class="title">
           <!-- TODO: Change page title -->
-          Page Title
+          Homework 1
         </h1>
         <p class="subtitle">
           <!-- TODO: Change page subtitle -->
-          Page Subtitle
+          Data Set on Air Traffic Passenger Statistics
         </p>
 
-        <p>This would be an excellent place to describe what this page is for, what to find in different sections, describe any motivation or theme behind your visualizations, and so on.</p>
+        <p>This page will give detailed information on dataset used and what data was considered.</p>
 
-        <p>You should not use this template unless you intend to customize it. Make it your own. Keep in mind this simple template is over 300 lines! You can see other examples of websites using Bulma at their showcase: <a href="https://bulma.io/expo/">bulma.io/expo/</a>.</p>
-
+        <p>In Vizualization section there are 3 buttons which redirects to different data visualization of graphs.</p>
         <h2 id="data">Data</h2>
 
-        <p>Here is the link to the dataset used for this assignment:  <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">Air Traffic Passenger Statistics</a> . You might also want to quote the license:</p>
+        <p>Here is the link to the dataset used for this assignment:  <a href="https://data.sfgov.org/Transportation/Air-Traffic-Passenger-Statistics/rkru-6vcg/data">Air Traffic Passenger Statistics</a>.</p>
 
         <blockquote>
           <p>
-            "This data is made available under the Public Domain Dedication and License v1.0 whose full text can be found at: <a href="http://www.opendatacommons.org/licenses/pddl/1.0/">www.opendatacommons.org/licenses/pddl/1.0/</a>"
+            "This data is made available under the Public Domain Dedication and License v1.0 whose full text can be found at: <a href="https://opendatacommons.org/licenses/pddl/1.0/">
+                Open Data Commons Public Domain Dedication and License
+              </a>"
           </p>
-          <cite>Put a citation here, possibly link to the dataset license information directly.</cite>
         </blockquote>
 
-        <p>Dataset consists of San Francisco International Airport reports with data on number of passengers and some statistics by Geo Region and Boarding Area. Here is the list of columns:</p>
+        <p>Original Dataset consists of statistics of San Francisco International Airport which is quaterly updated with
+            many columns which are filtered as Activity_Period > "201812" and Grouped by following columns:
+         </p>
 
         <ol>
           <li><strong>Geo Region:</strong> Text. Geographic region of the flight</li>
@@ -148,50 +150,14 @@
 
         <h3 id="wrangling">Wrangling</h3>
 
-        <p>Converted Activity Period to Date/Time data type. Converted Passenger Count from string to number. Here is the code to do it</p>
+        <p>Converted Activity Period to Date/Time data-type and then used getMonth() function to get months.
+          Converted Passenger count from string to number. Created an "out" object to store date and number.</p>
 
-        <pre>
-    function convertRow(row, index)
-    {
-        let out = {};
-        out.values = [];
-        for(let col in row) {
-          switch (col) {
-            case 'GEO_Region':
-            case 'GEO_Summary':
-            case 'Terminal':
-            case 'Boarding_Area':
-              out[col] = row[col];
-              break;
-            case 'Passenger_Count':
-              out[col] = +(row[col]);
-              break;
-              // these should be our time series values
-            default:
-              // convert column name into the date
-              var date = col;
-              // convert the value to float
-              var value = parseColumnName(row[col]);
-              // add them to our values
-              out.values.push({
-                'date': date,
-                'value': value
-              });
-            }
-        }
-        return out;
-      }
-        </pre>
-
-        <p>You can alternatively embed a Gist if you want. There is an "embed" button on <a href="https://gist.github.com/octocat/6cad326836d38bd3a7ae">the Gist page</a> and results in something like this:</p>
-
-        <script src="https://gist.github.com/octocat/6cad326836d38bd3a7ae.js"></script>
+        <p>Here is the code to for it.</p>
+        <script src="https://gist.github.com/Dhartim/a834b47e2b259c1a771efabc69139f01.js"></script>
 
         <h2 id="visualizations">Visualizations</h2>
-
-        <p>Ideally not everything would be on a single page like this example. Instead, you might want to put each section in its own webpage. You would need to carefully replicate the page template (with the header, navbar, and footer) and make the necessary updates. For example, you want the "About" navbar item to be considered active on an "About" web page.</p>
-
-        <p>For now this is just a demo. The buttons below do not go anywhere, but can be easily changed to link to different visualization pages.</p>
+        <p>Separated each visualization using buttons, please click on it to see the visualization of data.</p>
 
         <p class="buttons">
           <a class="button is-large is-success" href="linechart.html">
@@ -214,34 +180,6 @@
             </span>
             <span>Area Chart</span>
           </a>
-        </p>
-
-        <!-- https://github.com/vega/vega-embed#basic-example -->
-        <p>It is possible to embed some visualizations directly here too. Here is <a href="https://github.com/vega/vega-embed#basic-example">an example</a> using Vega-Lite:</p>
-
-        <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
-
-        <div id="vis"></div>
-
-        <h4>Instructions</h4>
-
-        <p>You will likely need to include instructions on how to interpet and use the visualization. In the case above, if you click the three dots <i class="fas fa-ellipsis-h has-text-grey-light	"></i> above it will open a menu where you can either save the visualization to a SVG or PNG, or alternatively open it up in the online Vega Editor.</p>
-
-        <h4>Discussion</h4>
-
-        <p>You may also need other sections, like a discussion section, per-visualization section on data wrangling, and others. Because of the extra content and code visualizations take, it might be worthwhile to break up your pages into one home page and then one page per visualization.</p>
-
-        <span class="heading">Acknowledgements</span>
-
-        <p>
-          <a href="#">Link to insiration</a><br/>
-          <a href="#">Link to StackOverflow snippet</a>
-        </p>
-
-        <p class="is-6">
-          <em>Thanks to Person Name for their suggestion to do something with the visualization.</em>
         </p>
 
         <h2 id="grade">Grade</h2>

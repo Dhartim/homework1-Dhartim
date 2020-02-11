@@ -10,8 +10,6 @@ body{
 .barchart,
 .linechart {
   font-family: Roboto;
-  font-weight: 300;
-  font-size: 16pt;
   width: 950px;
   height: 490px;
   background-color: white;
@@ -19,6 +17,17 @@ body{
   border-radius: 10px;
 }
 
+.x-axis-label,
+.y-axis-label
+{
+  font-size: 10pt;
+  fill: #88888;
+  font-weight: bolder;
+}
+
+ .domain {
+  stroke: none;
+}
 /* svg elements are styled differently from html elements */
 
 rect.bar {
@@ -27,60 +36,45 @@ rect.bar {
 }
 
 #x-axis text,
-.text,
-#x-axis-label,
-#y-axis-label,
+.text ,
 #y-axis text {
   font-size: 10pt;
   fill: #88888;
-  font-family: Roboto;
-  font-weight: 500;
+  font-weight: 200;
 }
 
 text.title {
-  font-family: Roboto;
   font-size: 12pt;
+  font-weight: bold;
 }
 
-#x-axis line {
-  /* tick marks */
+/*#x-axis line {
+   /* tick marks
   fill: none;
   stroke: none;
-}
+}*/
 
 #x-axis path,
 #y-axis path,
 #y-axis line {
   fill: none;
-
-  stroke: #bbbbbb;
-  stroke-width: 1px;
+  stroke: lightgrey;
+  /* stroke-width: 0.5px; */
 }
 
 .grid line {
   stroke: lightgrey;
-  stroke-opacity: 0.5;
+  stroke-opacity: 0.3;
   shape-rendering: crispEdges;
 }
 
-.line {
+/* .line {
     fill: none;
-    stroke: #ffab00;
+    stroke: #ffbb00;
     stroke-width: 3;
-}
-
+} */
+/*
 .overlay {
   fill: none;
   pointer-events: all;
-}
-
-/* Style the dots by assigning a fill and stroke */
-.dot {
-    fill: #ffab00;
-    stroke: #fff;
-}
-
-  .focus circle {
-  fill: none;
-  stroke: steelblue;
-}
+} */
