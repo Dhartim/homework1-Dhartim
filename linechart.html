@@ -117,7 +117,7 @@
           Kept x-axis as Activity period, which was further filtered out to get months in year 2019 and y-axis as passenger count.
           Geo Summary is separated using color scheme for blue as Domestic and orange as International. </p>
 
-        <p><img src="resources/multilinechart.png" alt="line chart prototype" width="960" height="500"/></p>
+        <p><img src="multilinechart.png" alt="line chart prototype" width="960" height="500"/></p>
 
     <h2 id="visualizations">Visualizations</h2>
 
@@ -133,7 +133,7 @@
         </div>
       </svg>
       <script type="text/javascript">
-          d3.csv("/resources/data.csv", convertRow).then(drawLineChart);
+          d3.csv("data.csv", convertRow).then(drawLineChart);
       </script>
 
     </div>
