@@ -114,7 +114,7 @@
         <p>This page will show visualization of bar chart. <br/>Following visualization is a prototype of bar chart using tableau.
           Kept Terminal as x-axis and maximum passenger count on y-axis</p>
 
-        <p><img src="barchartTableau.png" alt="BarChart Tableau prototype" width="960" height="500"/></p>
+        <p><img src="/resources/barchartTableau.png" alt="BarChart Tableau prototype" width="960" height="500"/></p>
 
   <!-- </head>
   <body>
@@ -137,7 +137,7 @@
         </div>
       </svg>
       <script type="text/javascript">
-          d3.csv("data.csv", convertRow).then(drawBarChart);
+          d3.csv("/resources/data.csv", convertRow).then(drawBarChart);
         // creating a global variable to hold our axis and scales
           let chart = {};
       </script>

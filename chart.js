@@ -38,9 +38,7 @@ let drawBarChart = function(data){
 
   //plot it on svg
   let plot = svg.append("g").attr("id", "plot");
-  //plot..attr("width", plotWidth + margin.left + margin.right)
-  //  .attr("height", plotHeight + margin.top + margin.bottom);
-  plot.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  plot.attr("transform", translate(margin.left,margin.top));
   //draw axis
   let xAxis = d3.axisBottom(terminalXScale);
   let yAxis = d3.axisLeft(passengerYScale);
@@ -48,11 +46,11 @@ let drawBarChart = function(data){
   yAxis.ticks(10, "f").tickFormat(d3.formatPrefix(".0", 50000));
 
   let xGroup = plot.append("g").attr("id", "x-axis");
-    xGroup.call(xAxis);
+  xGroup.call(xAxis);
 
     // notice it is at the top of our svg
     // we need to translate/shift it down to the bottom
-    xGroup.attr("transform", "translate(0," + plotHeight + ")");
+  xGroup.attr("transform", translate(0,plotHeight));
 
     // do the same for our y axix
     let yGroup = plot.append("g").attr("id", "y-axis");
@@ -94,7 +92,7 @@ let drawBarChart = function(data){
 
    svg.append("g")
       .attr("class", "grid")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+      .attr("transform", translate(margin.left, margin.top))
       .call(gridlines);
 
     //draw bars in graph
@@ -107,7 +105,7 @@ let drawBarChart = function(data){
       .attr("width", terminalXScale.bandwidth())
       .attr("y", function(d) { return passengerYScale(d.num); })
       .attr("height", function(d) { return plotHeight - passengerYScale(d.num); })
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .attr("transform", translate(margin.left, margin.top));
 
     // so we can access some of these elements later...
     // add them to our chart global
@@ -125,18 +123,8 @@ let drawBarChart = function(data){
 // DRAW LINE Chart
 
  let drawLineChart = function (data) {
+   //get data for graph
    var monthsNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-   //count num of pas for each month (combine months)
-   // let monthly = Object.values(data.reduce((r, o) => {
-   //   r[o.date.getMonth()] = r[o.date.getMonth()] || {month: monthsNames[o.date.getMonth()], num : 0};
-   //   r[o.date.getMonth()].num += +o.num;
-   //   return r;
-   // },{}))
-
-   //console.log(monthly);
-
-
       //separate data from geo summary
       var lineData = {
       International: [],
@@ -157,20 +145,20 @@ let drawBarChart = function(data){
         })
       }
     });
-    console.log(lineData.Domestic);
+
     //got separate data for international and domestic
     let International =  Object.values(lineData.International.reduce((r, o) => {
       r[o.date.getMonth()] = r[o.date.getMonth()] || {month: monthsNames[o.date.getMonth()], num : 0};
       r[o.date.getMonth()].num += +o.num;
       return r;
     },{}))
-    console.log(International);
+
     let Domestic =  Object.values(lineData.Domestic.reduce((r, o) => {
       r[o.date.getMonth()] = r[o.date.getMonth()] || {month: monthsNames[o.date.getMonth()], num : 0};
       r[o.date.getMonth()].num += +o.num;
       return r;
     },{}))
-    console.log(Domestic);
+
 
     //gives passenger counts
     let passengerCount = Domestic.map(d => d.num);
@@ -180,7 +168,6 @@ let drawBarChart = function(data){
       if (isNaN(max)) {
         max = 0;
       }
-    //  console.log("count bounds:", [min, max]);
 
       let svg = d3.select("body").select(".linechart");
       console.assert(svg.size() == 1);
@@ -200,15 +187,11 @@ let drawBarChart = function(data){
       let passengerYScale = d3.scaleLinear()
         .domain([min, max])
         .range([plotHeight, 0])
-      //	.nice(); // rounds the domain a bit for nicer output
 
       let months = Domestic.map(d => d.month);
-      //console.log(months);
-    //  months.sort();
       let monthXScale = d3.scaleBand()
         .domain(months) // all region (not using the count here)
         .rangeRound([0, plotWidth])
-        //.paddingInner(0.23); // space between bars
 
       let plot = svg.append("g").attr("id", "plot");
       plot.attr("transform", translate(margin.left,margin.top));
@@ -227,49 +210,38 @@ let drawBarChart = function(data){
       let yGroup = plot.append("g").attr("id", "y-axis");
       yGroup.call(yAxis);
 
-//ADD Line to graph
-      //let pairs = Array.from(monthly);
+      //ADD Line to graph
+
 
       let line1 = d3.line()
             //x(function(d){return 5})
             .x(function(d) {return (monthXScale(d.month) + 100)})
             .y(function(d) {return passengerYScale(d.num) + margin.top + 2});
 
-// CODE FOR MULTI LINE
-svg.append("path")
-      .datum(Domestic)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 3)
-      .attr("width", monthXScale.bandwidth())
-      .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
-      .attr("d", line1);
+      // CODE FOR MULTI LINE
+      svg.append("path")
+            .datum(Domestic)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("stroke-width", 3)
+            .attr("width", monthXScale.bandwidth())
+            .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
+            .attr("d", line1);
 
-    svg.append("path")
-      .datum(International)
-      .attr("fill", "none")
-      .attr("stroke", "orange")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 3)
-      .attr("width", monthXScale.bandwidth())
-      .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
-      .attr("d", line1);
+      svg.append("path")
+        .datum(International)
+        .attr("fill", "none")
+        .attr("stroke", "orange")
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 3)
+        .attr("width", monthXScale.bandwidth())
+        .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
+        .attr("d", line1);
 // CODE FOR MULTI-LINE IS OVER
-
-//CODE FOR SINGLE LINE
-    /*  plot.append("path")
-      .datum(pairs)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-width", 3)
-      .attr("width", monthXScale.bandwidth())
-      .attr("height", function(d) { return plotHeight - passengerYScale(d.num)})
-      .attr("d", line1);*/
-// CODE FOR SINGLE LINE IS OVER
-      //label for x-axis
+      //albel fro x axis
       svg.append("text")
           .attr("class", "x-axis-label")
           .attr("dx","1em")
@@ -296,42 +268,43 @@ svg.append("path")
       .attr("text-anchor", "middle")
       .text("Maximum number of passengers travelled over time ");
 
-      // Gridline
-    var gridlines = d3.axisLeft()
-                       .tickFormat("")
-                       .tickSize(-plotWidth)
-                       .scale(passengerYScale);
+        // Gridline
+      var gridlines = d3.axisLeft()
+                         .tickFormat("")
+                         .tickSize(-plotWidth)
+                         .scale(passengerYScale);
 
-     svg.append("g")
-        .attr("class", "grid")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        .call(gridlines);
-    //legends
-    svg.append("rect")
-      .attr("x", plotWidth - margin.right - margin.left - margin.top - margin.bottom)
-      .attr("y", margin.top /2)
-      .attr("width", 15)
-      .attr("height", 15)
-      .style("fill", "steelblue")
-    svg.append("rect")
-        .attr("x", plotWidth - margin.right - margin.left + 10)
+      svg.append("g")
+          .attr("class", "grid")
+          .attr("transform", translate(margin.left, margin.top))
+          .call(gridlines);
+      //legends
+      svg.append("rect")
+        .attr("x", plotWidth - margin.right - margin.left - margin.top - margin.bottom)
         .attr("y", margin.top /2)
         .attr("width", 15)
         .attr("height", 15)
-        .style("fill", "orange")
-    svg.append("text")
-    .attr("x", plotWidth - margin.right - margin.left - margin.top - margin.bottom + 19)
-    .attr("y", margin.top/2 + 10)
-    .text("Domestic")
-    .style("font-size", "12px")
-    .attr("alignment-baseline","middle")
-    svg
-    .append("text")
-    .attr("x", plotWidth + margin.right - margin.left - 10)
-    .attr("y", margin.top/2 + 10)
-    .text("International")
-    .style("font-size", "12px")
-    .attr("alignment-baseline","middle")
+        .style("fill", "steelblue")
+      svg.append("rect")
+          .attr("x", plotWidth - margin.right - margin.left + 10)
+          .attr("y", margin.top /2)
+          .attr("width", 15)
+          .attr("height", 15)
+          .style("fill", "orange")
+          //text for legend 
+      svg.append("text")
+      .attr("x", plotWidth - margin.right - margin.left - margin.top - margin.bottom + 19)
+      .attr("y", margin.top/2 + 10)
+      .text("Domestic")
+      .style("font-size", "12px")
+      .attr("alignment-baseline","middle")
+      svg
+      .append("text")
+      .attr("x", plotWidth + margin.right - margin.left - 10)
+      .attr("y", margin.top/2 + 10)
+      .text("International")
+      .style("font-size", "12px")
+      .attr("alignment-baseline","middle")
 
 };
 

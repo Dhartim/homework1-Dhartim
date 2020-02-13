@@ -1,6 +1,6 @@
 //this will load data from csv file
 let parseColumnName = d3.timeParse('%Y%m');
-
+//to convert data from csv file to required format
 function convertRow(row, index)
 {
   let out = {};
@@ -11,7 +11,6 @@ function convertRow(row, index)
       case 'GEO_Region':
       case 'GEO_Summary':
       case 'Terminal':
-      // case 'Boarding_Area':
         out[col] = row[col];
         break;
       case 'Passenger_Count':
