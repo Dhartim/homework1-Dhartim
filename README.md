@@ -2,7 +2,7 @@
 
 <https://usf-cs360-spring2020.github.io/homework1-Dhartim/>
 
-![Profile Image](profile.jpg)
+![Profile Image](profile.jpg | width = 100)
 
 **Name:** Dharti Madeka  
 **Email:** <dpmadeka@dons.usfca.edu>
